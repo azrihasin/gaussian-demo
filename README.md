@@ -2,8 +2,6 @@
 
 MDX Blog Template is a simple implementation of a markdown static blog. Built with Next.js 14 and velite js.
 
-<img src="screenshot/mdx-blog-template.jpg" alt="Dashboard" width="100%">
-
 ## Table of Contents
 
 - [Features](#features)
