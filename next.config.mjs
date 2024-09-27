@@ -6,6 +6,7 @@ const nextConfig = {
     config.plugins.push(new VeliteWebpackPlugin());
     return config;
   },
+  output: "standalone"
 };
 
 class VeliteWebpackPlugin {
