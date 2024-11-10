@@ -39,10 +39,10 @@ import FPScontrols from "./controls";
 
 const models = [
   {
-    title: "Art Gallery",
-    splat: "https://huggingface.co/datasets/azrihasin/test/resolve/main/gallery1.splat",
-    position: [-0.06, 0.1, -0.06],
-    rotation: [3.066487658638269, 0.009413570534283353, -3.1169034930113315],
+    title: "Showroom",
+    splat: "https://huggingface.co/datasets/azrihasin/test/resolve/main/showroom.splat",
+    position: [4.72, 15.74, -0.44],
+    rotation: [-0.6904240233560722, -1.5288819193970289, -0.6879440802875763],
     walls: [
       {
         position: [0, 0, 0],
@@ -56,67 +56,85 @@ const models = [
     description:
       "A modal dialog that interrupts the user with important content and expects a response.",
   },
-  {
-    title: "Library",
-    splat: "https://huggingface.co/datasets/azrihasin/test/resolve/main/library_splat.splat",
-    position: [16.5, 17.24, -58.94],
-    rotation: [3.066487658638269, 0.009413570534283353, -3.1169034930113315],
-    walls: [
-      {
-        position: [0, 0, 0],
-        rotation: [0, 0, 0],
-        scale: [1, 1, 1],
-        transparent: true,
-        opacity: 0,
-        depthWrite: false,
-      },
-    ],
-    description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
-  },
-  {
-    title: "Library 4",
-    splat: "https://huggingface.co/datasets/azrihasin/test/resolve/main/library_splat4.splat",
-    position: [4.72, -2.12, -0.44],
-    rotation: [-3.0512971439889047, -1.2703544126533588, -3.0532728059962246],
-    walls: [
-      {
-        position: [0, 0, 0],
-        rotation: [0, 0, 0],
-        scale: [1, 1, 1],
-        transparent: true,
-        opacity: 0,
-        depthWrite: false,
-      },
-    ],
-    description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
-  },
-  {
-    title: "Room 2",
-    splat: "https://huggingface.co/datasets/azrihasin/test/resolve/main/room.splat",
-    position: [-0.06, 0.1, -0.06],
-    rotation: [3.066487658638269, 0.009413570534283353, -3.1169034930113315],
-    walls: [
-      {
-        position: [0, 0, 0],
-        rotation: [0, 0, 0],
-        scale: [1, 1, 1],
-        transparent: true,
-        opacity: 0,
-        depthWrite: false,
-      },
-    ],
-    description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
-  },
+  // {
+  //   title: "Art Gallery",
+  //   splat: "https://huggingface.co/datasets/azrihasin/test/resolve/main/gallery1.splat",
+  //   position: [-0.06, 0.1, -0.06],
+  //   rotation: [3.066487658638269, 0.009413570534283353, -3.1169034930113315],
+  //   walls: [
+  //     {
+  //       position: [0, 0, 0],
+  //       rotation: [0, 0, 0],
+  //       scale: [1, 1, 1],
+  //       transparent: true,
+  //       opacity: 0,
+  //       depthWrite: false,
+  //     },
+  //   ],
+  //   description:
+  //     "A modal dialog that interrupts the user with important content and expects a response.",
+  // },
+  // {
+  //   title: "Library",
+  //   splat: "https://huggingface.co/datasets/azrihasin/test/resolve/main/library_splat.splat",
+  //   position: [16.5, 17.24, -58.94],
+  //   rotation: [3.066487658638269, 0.009413570534283353, -3.1169034930113315],
+  //   walls: [
+  //     {
+  //       position: [0, 0, 0],
+  //       rotation: [0, 0, 0],
+  //       scale: [1, 1, 1],
+  //       transparent: true,
+  //       opacity: 0,
+  //       depthWrite: false,
+  //     },
+  //   ],
+  //   description:
+  //     "A modal dialog that interrupts the user with important content and expects a response.",
+  // },
+  // {
+  //   title: "Library 4",
+  //   splat: "https://huggingface.co/datasets/azrihasin/test/resolve/main/library_splat4.splat",
+  //   position: [4.72, -2.12, -0.44],
+  //   rotation: [-3.0512971439889047, -1.2703544126533588, -3.0532728059962246],
+  //   walls: [
+  //     {
+  //       position: [0, 0, 0],
+  //       rotation: [0, 0, 0],
+  //       scale: [1, 1, 1],
+  //       transparent: true,
+  //       opacity: 0,
+  //       depthWrite: false,
+  //     },
+  //   ],
+  //   description:
+  //     "A modal dialog that interrupts the user with important content and expects a response.",
+  // },
+  // {
+  //   title: "Room 2",
+  //   splat: "https://huggingface.co/datasets/azrihasin/test/resolve/main/room.splat",
+  //   position: [-0.06, 0.1, -0.06],
+  //   rotation: [3.066487658638269, 0.009413570534283353, -3.1169034930113315],
+  //   walls: [
+  //     {
+  //       position: [0, 0, 0],
+  //       rotation: [0, 0, 0],
+  //       scale: [1, 1, 1],
+  //       transparent: true,
+  //       opacity: 0,
+  //       depthWrite: false,
+  //     },
+  //   ],
+  //   description:
+  //     "A modal dialog that interrupts the user with important content and expects a response.",
+  // },
 ];
 
 export default function Gaussian() {
   const [open, setOpen] = useState(false);
   const [currentItem, setCurrentItem]: any = useState({});
   const [isClicked, setIsClicked] = useState(false);
-  const [selectedModel, setSelectedModel]: any = useState(models[1]);
+  const [selectedModel, setSelectedModel]: any = useState(models[0]);
 
   const closeDialog = () => {
     setOpen(false);
@@ -138,10 +156,10 @@ export default function Gaussian() {
     setSelectedModel(model);
   };
 
-//   const itenary = useLoader(TextureLoader, "/itenary.png");
-//   const fdp = useLoader(TextureLoader, "/fdp.png");
-//   const unifi = useLoader(TextureLoader, "/unifi.png");
-//   const ad = useLoader(TextureLoader, "/ad.png");
+  //   const itenary = useLoader(TextureLoader, "/itenary.png");
+  //   const fdp = useLoader(TextureLoader, "/fdp.png");
+  //   const unifi = useLoader(TextureLoader, "/unifi.png");
+  //   const ad = useLoader(TextureLoader, "/ad.png");
 
   const splatRef: any = useRef();
 
@@ -177,6 +195,8 @@ export default function Gaussian() {
   const [splats, setSplats] = useState(maxSplats);
 
   const effectiveSplats: any = throttleSplats ? Math.min(maxSplats, splats) : maxSplats;
+
+  const texture = useLoader(TextureLoader, "https://placehold.co/600x400"); // Placeholder image
 
   return (
     <>
@@ -219,11 +239,9 @@ export default function Gaussian() {
         <Canvas flat shadows dpr={[1, 2]}>
           <Physics>
             <Splat
-              ref={splatRef}
-              key={selectedModel.title}
-              src={selectedModel.splat}
-              position={selectedModel.position}
-              rotation={selectedModel.rotation}
+              src="https://huggingface.co/datasets/azrihasin/test/resolve/main/showroom.splat"
+              position={[4.72, 14.24, -0.44]} // Y position reduced by 1.5
+              rotation={[-0.6904240233560722, -1.5288819193970289, -0.6879440802875763]}
             />
             <World />
             <KeyboardControls
@@ -248,58 +266,41 @@ export default function Gaussian() {
               RIGHT: THREE.MOUSE.ROTATE,
             }}
           />
+
           <mesh
-            onClick={() => openPortal("unifi", "UNIFI Equipment Troubleshooting Guide​")}
-            position={[-3.42, 1.92, -0.96]}
-            scale={[0.92, 0.56, 0.92]}
-            rotation={[0, 0.9773843811168286, 0]}>
+            onClick={()=> openPortal( 1,'test')}
+            position={[0.88, 4.22 - 2, -4]} // Decrease y by 2
+            scale={[1.52, 0.92, 0.92]}
+            rotation={[0, 0, -0.017453292519943295]}>
             <planeGeometry />
-            {/* <Decal
-              position={[0, 0, 0.01]}
-              rotation={[0, 0, 0]}
-              scale={[0.92, 0.56, 0.92]}
-              map={unifi}
-            /> */}
+            <meshStandardMaterial map={texture} side={THREE.DoubleSide} />
           </mesh>
+
           <mesh
-            onClick={() =>
-              openPortal("fdp", "Geolocation & Dashboard for Key Influencer of FDP Deployment")
-            }
-            position={[-3.04, 1.92, 1.4]}
-            scale={[0.92, 0.56, 0.92]}
-            rotation={[-3.141592653589793, 0.5061454830783527, -3.141592653589793]}>
+            onClick={()=> openPortal( 1,'test')}
+            position={[4.64, 4.22 - 2, 3.28]} // Decrease y by 2
+            scale={[1.52, 0.92, 0.92]}
+            rotation={[0, 0, -0.017453292519943295]}>
             <planeGeometry />
-            {/* <Decal
-              position={[0, 0, 0.01]} // Slightly in front of the plane
-              rotation={[0, 0, 0]} // No rotation
-              scale={[0.92, 0.56, 0.92]}
-              map={fdp}
-            /> */}
+            <meshStandardMaterial map={texture} side={THREE.DoubleSide} />
           </mesh>
+
           <mesh
-            onClick={() => openPortal("ad", "Angular Web Template ")}
-            position={[-0.22, 1.92, 1.04]}
-            scale={[0.92, 0.56, 0.92]}
-            rotation={[3.141592653589793, -0.8552113334772216, 3.141592653589793]}>
+            onClick={()=> openPortal( 1,'test')}
+            position={[0.66, 4.24 - 2, 3.38]} // Decrease y by 2
+            scale={[1.52, 0.92, 0.92]}
+            rotation={[0, 0, -0.017453292519943295]}>
             <planeGeometry />
-            {/* <Decal
-              position={[0, 0, 0.01]} // Slightly in front of the plane
-              rotation={[0, 0, 0]} // No rotation
-              scale={[0.92, 0.56, 0.92]}
-              map={ad}
-            /> */}
+            <meshStandardMaterial map={texture} side={THREE.DoubleSide} />
           </mesh>
+
           <mesh
-            onClick={() => openPortal("itenary", "Itinerary Generator")}
-            position={[-1.56, 1.92, -1.6]}
-            scale={[0.92, 0.56, 0.92]}>
+            onClick={()=> openPortal( 1,'test')}
+            position={[4.64, 4.22 - 2, -3.96]} // Decrease y by 2
+            scale={[1.52, 0.92, 0.92]}
+            rotation={[0, 0, -0.017453292519943295]}>
             <planeGeometry />
-            {/* <Decal
-              position={[0, 0, 0.01]} // Slightly in front of the plane
-              rotation={[0, 0, 0]} // No rotation
-              scale={[0.8, 0.4, 0.8]}
-              map={useLoader(TextureLoader, "/itenary.png")}
-            /> */}
+            <meshStandardMaterial map={texture} side={THREE.DoubleSide} />
           </mesh>
         </Canvas>
       </div>
@@ -317,7 +318,11 @@ export default function Gaussian() {
                   : "pointer-events-none invisible -translate-x-[10px] opacity-0"
               }`}
               style={{transitionDelay: "300ms"}}>
-              <a className="block" href="/blog/ai-powered-itinerary-generator" aria-disabled="false" data-discover="true">
+              <a
+                className="block"
+                href="/blog/ai-powered-itinerary-generator"
+                aria-disabled="false"
+                data-discover="true">
                 Itinerary Generator
               </a>
             </li>
@@ -329,7 +334,11 @@ export default function Gaussian() {
                   : "pointer-events-none invisible -translate-x-[10px] opacity-0"
               }`}
               style={{transitionDelay: "350ms"}}>
-              <a className="block" href="/blog/unifi-ar-troubleshooting-guide" aria-disabled="false" data-discover="true">
+              <a
+                className="block"
+                href="/blog/unifi-ar-troubleshooting-guide"
+                aria-disabled="false"
+                data-discover="true">
                 UNIFI AR
               </a>
             </li>
@@ -340,7 +349,11 @@ export default function Gaussian() {
                   : "pointer-events-none invisible -translate-x-[10px] opacity-0"
               }`}
               style={{transitionDelay: "400ms"}}>
-              <a className="block" href="/blog/geolocation-dashboard-for-fdp-deployment" aria-disabled="false" data-discover="true">
+              <a
+                className="block"
+                href="/blog/geolocation-dashboard-for-fdp-deployment"
+                aria-disabled="false"
+                data-discover="true">
                 FDP Applcation
               </a>
             </li>
@@ -351,7 +364,11 @@ export default function Gaussian() {
                   : "pointer-events-none invisible -translate-x-[10px] opacity-0"
               }`}
               style={{transitionDelay: "250ms"}}>
-              <a className="block" href="/blog/transforming-advertising-with-augmented-reality" aria-disabled="false" data-discover="true">
+              <a
+                className="block"
+                href="/blog/transforming-advertising-with-augmented-reality"
+                aria-disabled="false"
+                data-discover="true">
                 Angular Web Template
               </a>
             </li>

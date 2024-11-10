@@ -85,7 +85,7 @@ const FPScontrols = () => {
         mass={1}
         friction={0}
         restitution={0}
-        position={[0, 0.6, 0]}
+        position={[0, 1.5, 0]}
         enabledRotations={[false, false, false]} // prevent from falling sideways
       >
         {/** for the capsule, args={[halfCapsuleHeight-radius, radius]} 
