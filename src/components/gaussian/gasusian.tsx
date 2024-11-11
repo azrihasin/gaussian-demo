@@ -36,6 +36,11 @@ import {Leva, useControls} from "leva";
 import * as THREE from "three";
 import World from "./world";
 import FPScontrols from "./controls";
+import dynamic from "next/dynamic";
+
+const DynamicTextureLoader = dynamic(() => import("../../components/TextureLoaderComponent"), {
+  ssr: false,
+});
 
 const models = [
   {
@@ -136,14 +141,21 @@ export default function Gaussian() {
   const [isClicked, setIsClicked] = useState(false);
   const [selectedModel, setSelectedModel]: any = useState(models[0]);
 
+  const [textureItenary, setTextureItenary] = useState(null);
+  const [textureUnifi, setTextureUnifi] = useState(null);
+  const [textureFdp, setTextureFdp] = useState(null);
+  const [textureWeb, setTextureWeb] = useState(null);
+
   const closeDialog = () => {
     setOpen(false);
   };
 
-  const openPortal = (id: any, title: any) => {
+  const openPortal = (id: any, title: any, href: any) => {
     setCurrentItem({
       name: title,
-      image: `${id}.png`,
+      image: getImageLink(title),
+      desc: getDescription(title),
+      href,
     });
     setOpen(true);
   };
@@ -196,10 +208,88 @@ export default function Gaussian() {
 
   const effectiveSplats: any = throttleSplats ? Math.min(maxSplats, splats) : maxSplats;
 
-  const texture = useLoader(TextureLoader, "https://placehold.co/600x400"); // Placeholder image
+  const imageLinks = [
+    {
+      title: "Itenary Generator",
+      link: "/blog/ai-powered-itinerary-generator",
+      image:
+        "https://raw.githubusercontent.com/azrihasin/gaussian-demo-assets/refs/heads/main/itenary-generator-intro.jpg",
+      desc: "Travel planning has come a long way. Gone are the days of physically visiting travel agencies, rifling through brochures, or spending countless hours researching destinations and attractions. The advent of the internet brought online travel agencies and review platforms like TripAdvisor, drastically transforming the way we plan our trips. However, even with these tools, crafting a well-thought-out, efficient itinerary can still be a daunting task. The process of gathering all the necessary information and fitting it together seamlessly to ensure a smooth journey can be both time-consuming and stressful. That's where an AI-powered itinerary generator comes into play, offering a more streamlined and personalized approach to travel planning.",
+    },
+    {
+      title: "Unifi AR",
+      link: "/blog/unifi-ar-troubleshooting-guide",
+      image:
+        "https://raw.githubusercontent.com/azrihasin/gaussian-demo-assets/refs/heads/main/unifi-ar-intro.jpg",
+      desc: "In today's hyper-connected world, reliable and efficient internet connectivity is paramount. As the digital age progresses, more sophisticated and comprehensive solutions are required to keep up with increasing demandsndable internet ccess. However, like all technology, they are not immune to occasional hiccups and technical issues. For most people, troubleshooting network equipment can be a daunting task filled with confusing steps and technical jargon. Fortunately, advancements in web applications and augmented reality (AR) are changing this landscape. This blog explores a revolutionary web application designed to simplify UNIFI equipment troubleshooting, leveraging the power of augmented reality to provide intuitive and effective guidance for users.",
+    },
+    {
+      title: "FDP Application",
+      link: "/blog/geolocation-dashboard-for-fdp-deployment",
+      image:
+        "https://raw.githubusercontent.com/azrihasin/gaussian-demo-assets/refs/heads/main/fdp-application-intro.jpg",
+      desc: "In the dynamic landscape of Fiber Distribution Point (FDP) deployment, having real-time insights and a cohesive overview of your installations can be a game-changer. The ability to monitor, analyze, and manage the deployment process effectively is crucial for ensuring efficiency, detecting potential issues, and optimizing resources. This is where a sophisticated web application featuring geolocation and advanced dashboards comes into play. By integrating heat maps, geolocation tracking, and comprehensive FDP mapping, this innovative tool provides key influencers with a seamless and intuitive view of FDP installations.",
+    },
+    {
+      title: "Angular Web Template",
+      link: "/blog/transforming-advertising-with-augmented-reality",
+      image:
+        "https://raw.githubusercontent.com/azrihasin/gaussian-demo-assets/refs/heads/main/angular-web-template-intro.jpg",
+      desc: "In the ever-evolving landscape of advertising, capturing consumer attention and delivering impactful messages is a persistent challenge. Brands are constantly seeking new and innovative ways to stand out in a crowded market. Enter augmented reality (AR), a groundbreaking technology that is redefining how ads are created, delivered, and experienced. Today, we explore Unifi's pioneering initiative to use augmented reality to take advertising to the next level, allowing users to scan competing telco ads and seamlessly overlay them with engaging Unifi advertisements.",
+    },
+  ];
+
+  // const textureItenary = useLoader(
+  //   TextureLoader,
+  //   "https://raw.githubusercontent.com/azrihasin/gaussian-demo-assets/refs/heads/main/patrol-image.png"
+  // ); // Placeholder image
+  // const textureUnifi = useLoader(TextureLoader, "https://raw.githubusercontent.com/azrihasin/gaussian-demo-assets/refs/heads/main/swims-image.png"); // Placeholder image
+  // const textureFdp = useLoader(
+  //   TextureLoader,
+  //   "https://raw.githubusercontent.com/azrihasin/gaussian-demo-assets/refs/heads/main/eptw-image.png"
+  // ); // Placeholder image
+  // const textureWeb = useLoader(
+  //   TextureLoader,
+  //   "https://raw.githubusercontent.com/azrihasin/gaussian-demo-assets/refs/heads/main/sifu-image.png"
+  // ); // Placeholder image
+
+  const getImageLink = (title: any) => {
+    const image = imageLinks.find((item) => item.title.toLowerCase() === title.toLowerCase());
+    return image ? image.image : null;
+  };
+
+  const getDescription = (title: any) => {
+    const description = imageLinks.find((item) => item.title.toLowerCase() === title.toLowerCase());
+    return description ? description.desc : null;
+  };
 
   return (
     <>
+      {/* Load each texture dynamically only if not already loaded */}
+      {!textureItenary && (
+        <DynamicTextureLoader
+          url="https://raw.githubusercontent.com/azrihasin/gaussian-demo-assets/refs/heads/main/itenary-generator-intro.jpg"
+          onLoad={(texture: any) => setTextureItenary(texture)}
+        />
+      )}
+      {!textureUnifi && (
+        <DynamicTextureLoader
+          url="https://raw.githubusercontent.com/azrihasin/gaussian-demo-assets/refs/heads/main/unifi-ar-intro.jpg"
+          onLoad={(texture: any) => setTextureUnifi(texture)}
+        />
+      )}
+      {!textureFdp && (
+        <DynamicTextureLoader
+          url="https://raw.githubusercontent.com/azrihasin/gaussian-demo-assets/refs/heads/main/fdp-application-intro.jpg"
+          onLoad={(texture: any) => setTextureFdp(texture)}
+        />
+      )}
+      {!textureWeb && (
+        <DynamicTextureLoader
+          url="https://raw.githubusercontent.com/azrihasin/gaussian-demo-assets/refs/heads/main/angular-web-template-intro.jpg"
+          onLoad={(texture: any) => setTextureWeb(texture)}
+        />
+      )}
       <Leva hidden={true} />
       <div
         className={`inset-0 ${
@@ -268,39 +358,50 @@ export default function Gaussian() {
           />
 
           <mesh
-            onClick={()=> openPortal( 1,'test')}
+            onClick={() =>
+              openPortal(1, "Itenary Generator", "/blog/ai-powered-itinerary-generator")
+            }
             position={[0.88, 4.22 - 2, -4]} // Decrease y by 2
             scale={[1.52, 0.92, 0.92]}
             rotation={[0, 0, -0.017453292519943295]}>
             <planeGeometry />
-            <meshStandardMaterial map={texture} side={THREE.DoubleSide} />
+            <meshStandardMaterial map={textureItenary} side={THREE.DoubleSide} />
           </mesh>
 
           <mesh
-            onClick={()=> openPortal( 1,'test')}
-            position={[4.64, 4.22 - 2, 3.28]} // Decrease y by 2
+            onClick={() => openPortal(1, "Unifi AR", "/blog/unifi-ar-troubleshooting-guide")}
+            position={[4.64 - 1, 4.22 - 2, 3.28]} // Decrease z by 10 to move behind
             scale={[1.52, 0.92, 0.92]}
+            renderOrder={5}
             rotation={[0, 0, -0.017453292519943295]}>
             <planeGeometry />
-            <meshStandardMaterial map={texture} side={THREE.DoubleSide} />
+            <meshStandardMaterial side={THREE.DoubleSide} />
           </mesh>
 
           <mesh
-            onClick={()=> openPortal( 1,'test')}
+            onClick={() =>
+              openPortal(1, "FDP Application", "/blog/geolocation-dashboard-for-fdp-deployment")
+            }
             position={[0.66, 4.24 - 2, 3.38]} // Decrease y by 2
             scale={[1.52, 0.92, 0.92]}
             rotation={[0, 0, -0.017453292519943295]}>
             <planeGeometry />
-            <meshStandardMaterial map={texture} side={THREE.DoubleSide} />
+            <meshStandardMaterial map={textureFdp} side={THREE.DoubleSide} />
           </mesh>
 
           <mesh
-            onClick={()=> openPortal( 1,'test')}
+            onClick={() =>
+              openPortal(
+                1,
+                "Angular Web Template",
+                "/blog/transforming-advertising-with-augmented-reality"
+              )
+            }
             position={[4.64, 4.22 - 2, -3.96]} // Decrease y by 2
             scale={[1.52, 0.92, 0.92]}
             rotation={[0, 0, -0.017453292519943295]}>
             <planeGeometry />
-            <meshStandardMaterial map={texture} side={THREE.DoubleSide} />
+            <meshStandardMaterial map={textureWeb} side={THREE.DoubleSide} />
           </mesh>
         </Canvas>
       </div>
@@ -354,7 +455,7 @@ export default function Gaussian() {
                 href="/blog/geolocation-dashboard-for-fdp-deployment"
                 aria-disabled="false"
                 data-discover="true">
-                FDP Applcation
+                FDP Application
               </a>
             </li>
             <li
@@ -389,18 +490,16 @@ export default function Gaussian() {
           <div className="flex px-4 py-8">
             <div className="mr-6 flex size-96 items-center justify-center rounded-xl bg-gradient-to-r from-slate-50 to-slate-200">
               <div className="relative max-h-64 max-w-64 text-clip">
-                <Image src={`/${currentItem.image}`} alt="Your Image" width={300} height={200} />
+                <Image src={currentItem.image} alt="Your Image" width={300} height={200} />
               </div>
             </div>
-            <div className="flex size-96 items-center px-6">
-              <p>
-                Mattis nunc sed blandit libero volutpat sed cras. Sit amet massa vitae tortor
-                condimentum. Magna eget est lorem ipsum dolor sit amet. Cursus turpis massa
-                tincidunt dui ut ornare. Fermentum iaculis eu non diam phasellus vestibulum lorem
-                sed risus. Lobortis elementum nibh tellus molestie nunc non blandit. Condimentum
-                lacinia quis vel eros donec ac odio tempor orci. Habitant morbi tristique senectus
-                et netus et malesuada.
+            <div className="flex size-96 flex-col items-center px-6">
+              <p className="overflow-hidden text-ellipsis line-clamp-8">
+                {currentItem.desc}
               </p>
+              <a href={currentItem.href} className="text-blue-500 hover:underline mt-2 self-start">
+                See more...
+              </a>
             </div>
           </div>
           {/* <DialogFooter>

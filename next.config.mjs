@@ -2,6 +2,9 @@ import { build } from "velite";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    domains: ['raw.githubusercontent.com'],
+  },
   webpack: (config) => {
     config.plugins.push(new VeliteWebpackPlugin());
     return config;
